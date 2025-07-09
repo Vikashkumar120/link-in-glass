@@ -12,7 +12,13 @@ import {
   Eye,
   EyeOff,
   Lock,
-  X
+  X,
+  Send,
+  Github,
+  Youtube,
+  Instagram,
+  Globe,
+  ExternalLink
 } from 'lucide-react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 
@@ -48,24 +54,28 @@ const defaultProfile: ProfileData = {
       id: '2',
       title: 'Telegram Channel',
       url: 'https://t.me/gyaanRepo',
+      iconUrl: 'telegram',
       color: 'blue'
     },
     {
       id: '3',
       title: 'GitHub Profile',
       url: 'https://github.com/vikashkumar14',
+      iconUrl: 'github',
       color: 'gray'
     },
     {
       id: '4',
       title: 'YouTube Channel',
       url: 'https://youtube.com/@theeditorstar12?si=FP4yAjH0T2a33833',
+      iconUrl: 'youtube',
       color: 'red'
     },
     {
       id: '5',
       title: 'Instagram',
       url: 'https://instagram.com/codeninjavik',
+      iconUrl: 'instagram',
       color: 'pink'
     }
   ],
@@ -319,9 +329,31 @@ const AdvancedBioLink: React.FC = () => {
                             </div>
                           )}
                           
-                          {link.iconUrl && (
-                            <img src={link.iconUrl} alt="" className="w-8 h-8 rounded-lg mr-4" />
-                          )}
+                          <div className="mr-4 flex-shrink-0">
+                            {link.iconUrl ? (
+                              link.iconUrl.startsWith('http') || link.iconUrl.startsWith('/') ? (
+                                <img src={link.iconUrl} alt="" className="w-8 h-8 rounded-lg object-cover" />
+                              ) : (
+                                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                                  link.color === 'telegram' ? 'bg-blue-500/20' :
+                                  link.color === 'github' ? 'bg-gray-500/20' :
+                                  link.color === 'youtube' ? 'bg-red-500/20' :
+                                  link.color === 'instagram' ? 'bg-pink-500/20' :
+                                  'bg-purple-500/20'
+                                }`}>
+                                  {link.iconUrl === 'telegram' && <Send className="w-5 h-5 text-blue-400" />}
+                                  {link.iconUrl === 'github' && <Github className="w-5 h-5 text-gray-300" />}
+                                  {link.iconUrl === 'youtube' && <Youtube className="w-5 h-5 text-red-400" />}
+                                  {link.iconUrl === 'instagram' && <Instagram className="w-5 h-5 text-pink-400" />}
+                                  {!['telegram', 'github', 'youtube', 'instagram'].includes(link.iconUrl) && <Globe className="w-5 h-5 text-purple-400" />}
+                                </div>
+                              )
+                            ) : (
+                              <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                                <Globe className="w-5 h-5 text-purple-400" />
+                              </div>
+                            )}
+                          </div>
                           
                           <div className="flex-1">
                             <h3 className={`font-semibold ${profile.darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -357,7 +389,7 @@ const AdvancedBioLink: React.FC = () => {
                                   : 'text-gray-600 hover:text-black'
                               }`}
                             >
-                              <span className="text-sm">→</span>
+                              <ExternalLink className="w-4 h-4" />
                             </button>
                           )}
                         </div>
@@ -513,10 +545,28 @@ const AdvancedBioLink: React.FC = () => {
                       : 'bg-black/10 border-black/20 text-black placeholder:text-gray-600'
                   }`}
                 />
+                <div>
+                  <select
+                    value={newLink.iconUrl || ''}
+                    onChange={(e) => setNewLink(prev => ({ ...prev, iconUrl: e.target.value }))}
+                    className={`w-full p-3 rounded-xl backdrop-blur-xl border transition-all ${
+                      profile.darkMode 
+                        ? 'bg-white/10 border-white/20 text-white' 
+                        : 'bg-black/10 border-black/20 text-black'
+                    }`}
+                  >
+                    <option value="">Select Icon</option>
+                    <option value="globe">🌐 Website</option>
+                    <option value="telegram">📱 Telegram</option>
+                    <option value="github">💻 GitHub</option>
+                    <option value="youtube">📺 YouTube</option>
+                    <option value="instagram">📷 Instagram</option>
+                  </select>
+                </div>
                 <input
                   type="url"
-                  placeholder="Icon URL (optional)"
-                  value={newLink.iconUrl || ''}
+                  placeholder="Custom Icon URL (optional)"
+                  value={newLink.iconUrl?.startsWith('http') ? newLink.iconUrl : ''}
                   onChange={(e) => setNewLink(prev => ({ ...prev, iconUrl: e.target.value }))}
                   className={`w-full p-3 rounded-xl backdrop-blur-xl border transition-all ${
                     profile.darkMode 
@@ -598,10 +648,28 @@ const AdvancedBioLink: React.FC = () => {
                       : 'bg-black/10 border-black/20 text-black placeholder:text-gray-600'
                   }`}
                 />
+                <div>
+                  <select
+                    value={editingLink.iconUrl && !editingLink.iconUrl.startsWith('http') ? editingLink.iconUrl : ''}
+                    onChange={(e) => setEditingLink(prev => prev ? { ...prev, iconUrl: e.target.value } : null)}
+                    className={`w-full p-3 rounded-xl backdrop-blur-xl border transition-all ${
+                      profile.darkMode 
+                        ? 'bg-white/10 border-white/20 text-white' 
+                        : 'bg-black/10 border-black/20 text-black'
+                    }`}
+                  >
+                    <option value="">Select Icon</option>
+                    <option value="globe">🌐 Website</option>
+                    <option value="telegram">📱 Telegram</option>
+                    <option value="github">💻 GitHub</option>
+                    <option value="youtube">📺 YouTube</option>
+                    <option value="instagram">📷 Instagram</option>
+                  </select>
+                </div>
                 <input
                   type="url"
-                  placeholder="Icon URL (optional)"
-                  value={editingLink.iconUrl || ''}
+                  placeholder="Custom Icon URL (optional)"
+                  value={editingLink.iconUrl?.startsWith('http') ? editingLink.iconUrl : ''}
                   onChange={(e) => setEditingLink(prev => prev ? { ...prev, iconUrl: e.target.value } : null)}
                   className={`w-full p-3 rounded-xl backdrop-blur-xl border transition-all ${
                     profile.darkMode 
