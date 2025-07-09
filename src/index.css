@@ -129,7 +129,7 @@
 
   /* New bio link button with enhanced styling */
   .bio-link-btn {
-    @apply relative overflow-hidden backdrop-blur-xl border rounded-2xl px-6 py-5 transition-all duration-500 hover:scale-[1.02] cursor-pointer group;
+    @apply relative overflow-hidden backdrop-blur-xl border rounded-2xl px-6 py-5 transition-all duration-500 hover:scale-[1.02] cursor-pointer;
     background: var(--button-gradient);
     border: 1px solid transparent;
     background-clip: padding-box;
@@ -263,7 +263,7 @@
     transition: left 0.5s ease;
   }
 
-  .group:hover .icon-container::before {
+  .bio-link-btn:hover .icon-container::before {
     left: 100%;
   }
 }
