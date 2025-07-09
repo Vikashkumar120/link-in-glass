@@ -1,7 +1,7 @@
-import BioLinkPage from '@/components/BioLinkPage';
+import AdvancedBioLink from '@/components/AdvancedBioLink';
 
 const Index = () => {
-  return <BioLinkPage />;
+  return <AdvancedBioLink />;
 };
 
 export default Index;
