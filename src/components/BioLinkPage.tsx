@@ -6,7 +6,7 @@ import {
   Instagram,
   ExternalLink 
 } from 'lucide-react';
-import profileAvatar from '@/assets/profile-avatar.jpg';
+import gyaanrepoLogo from '@/assets/gyaanrepo-logo.jpg';
 
 interface LinkButtonProps {
   icon: React.ReactNode;
@@ -55,38 +55,38 @@ const LinkButton = ({ icon, title, subtitle, href, color = 'default' }: LinkButt
 const BioLinkPage = () => {
   const links = [
     {
-      icon: <Globe className="w-6 h-6" />,
-      title: "Personal Website",
-      subtitle: "Visit my portfolio and blog",
-      href: "https://example.com",
+      icon: <img src={gyaanrepoLogo} alt="GyaanRepo" className="w-6 h-6 rounded-md" />,
+      title: "GyaanRepo Website",
+      subtitle: "Knowledge repository and resources",
+      href: "https://gyaanrepo.netlify.app/",
       color: "default" as const
     },
     {
       icon: <Send className="w-6 h-6" />,
       title: "Telegram Channel",
-      subtitle: "Latest updates and content",
-      href: "https://t.me/username",
+      subtitle: "Latest updates and tech content",
+      href: "https://t.me/gyaanRepo",
       color: "telegram" as const
     },
     {
       icon: <Github className="w-6 h-6" />,
       title: "GitHub Profile",
       subtitle: "Open source projects and code",
-      href: "https://github.com/username",
+      href: "https://github.com/vikashkumar14",
       color: "github" as const
     },
     {
       icon: <Youtube className="w-6 h-6" />,
       title: "YouTube Channel",
-      subtitle: "Tech tutorials and content",
-      href: "https://youtube.com/@username",
+      subtitle: "The Editor Star - Tech tutorials",
+      href: "https://youtube.com/@theeditorstar12?si=FP4yAjH0T2a33833",
       color: "youtube" as const
     },
     {
       icon: <Instagram className="w-6 h-6" />,
       title: "Instagram",
-      subtitle: "Behind the scenes content",
-      href: "https://instagram.com/username",
+      subtitle: "@codeninjavik - Behind the scenes",
+      href: "https://instagram.com/codeninjavik",
       color: "instagram" as const
     }
   ];
@@ -98,23 +98,23 @@ const BioLinkPage = () => {
         <div className="text-center mb-8">
           <div className="relative inline-block mb-6">
             <img
-              src={profileAvatar}
-              alt="Profile"
+              src="/lovable-uploads/4d946d6d-2c54-41f2-850c-b9d435bbf7a7.png"
+              alt="CodeNinjaVik Profile"
               className="w-32 h-32 rounded-full object-cover profile-glow pulse-glow"
             />
           </div>
           
           <h1 className="text-3xl font-bold gradient-text mb-2">
-            Your Name
+            CodeNinjaVik
           </h1>
           
           <p className="text-lg text-muted-foreground mb-1">
-            @username
+            @codeninjavik
           </p>
           
           <p className="text-foreground/80 leading-relaxed">
-            Creator • Developer • Content Maker<br />
-            Building amazing things on the internet ✨
+            Developer • Content Creator • Tech Enthusiast<br />
+            Building knowledge repositories & coding tutorials ⚡
           </p>
         </div>
 
