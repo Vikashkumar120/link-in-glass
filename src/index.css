@@ -2,41 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Glassmorphism Bio Link Page Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Dark glassmorphism theme */
+    --background: 230 35% 7%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 230 35% 12%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 230 35% 12%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 270 91% 65%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 200 100% 50%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 230 35% 15%;
+    --muted-foreground: 215.4 16.3% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 270 91% 65%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 230 35% 20%;
+    --input: 230 35% 15%;
+    --ring: 270 91% 65%;
 
-    --radius: 0.5rem;
+    /* Custom glassmorphism variables */
+    --glass-bg: 230 35% 12%;
+    --glass-border: 230 35% 25%;
+    --glow-primary: 270 91% 65%;
+    --glow-secondary: 200 100% 50%;
+    --gradient-bg: linear-gradient(135deg, hsl(230 35% 7%) 0%, hsl(260 35% 10%) 50%, hsl(230 35% 7%) 100%);
+    --glass-backdrop: rgba(255, 255, 255, 0.05);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --glow-shadow: 0 0 20px hsl(var(--glow-primary) / 0.3);
+    --glow-shadow-hover: 0 0 30px hsl(var(--glow-primary) / 0.5);
+
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +111,72 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    background: var(--gradient-bg);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* Glassmorphism card component */
+  .glass-card {
+    @apply bg-card/20 backdrop-blur-lg border border-border/30 rounded-xl;
+    background: var(--glass-backdrop);
+    box-shadow: var(--glass-shadow);
+    border: 1px solid hsl(var(--glass-border) / 0.3);
+  }
+
+  /* Bio link button with glassmorphism and glow effects */
+  .bio-link-btn {
+    @apply glass-card px-6 py-4 transition-all duration-300 hover:scale-105 cursor-pointer;
+    background: var(--glass-backdrop);
+    border: 1px solid hsl(var(--glass-border) / 0.5);
+  }
+
+  .bio-link-btn:hover {
+    box-shadow: var(--glow-shadow-hover), var(--glass-shadow);
+    border-color: hsl(var(--glow-primary) / 0.8);
+    background: hsl(var(--glass-bg) / 0.3);
+  }
+
+  /* Profile picture with glow effect */
+  .profile-glow {
+    box-shadow: 0 0 30px hsl(var(--glow-primary) / 0.4);
+    border: 3px solid hsl(var(--glow-primary) / 0.6);
+  }
+
+  /* Animated gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(var(--glow-primary)), hsl(var(--glow-secondary)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Pulsing animation for interactive elements */
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulse-glow {
+    from {
+      box-shadow: 0 0 20px hsl(var(--glow-primary) / 0.4);
+    }
+    to {
+      box-shadow: 0 0 30px hsl(var(--glow-primary) / 0.6);
+    }
+  }
+
+  /* Floating animation */
+  .float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
   }
 }
