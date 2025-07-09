@@ -26,28 +26,28 @@ const LinkButton = ({ icon, title, subtitle, href, color = 'default' }: LinkButt
       onClick={handleClick}
       className="bio-link-btn group w-full flex items-center gap-4 text-left"
     >
-      <div className={`flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center ${
-        color === 'telegram' ? 'bg-blue-500/20 text-blue-400' :
-        color === 'github' ? 'bg-gray-500/20 text-gray-300' :
-        color === 'youtube' ? 'bg-red-500/20 text-red-400' :
-        color === 'instagram' ? 'bg-pink-500/20 text-pink-400' :
-        'bg-primary/20 text-primary'
+      <div className={`icon-container flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center ${
+        color === 'telegram' ? 'bg-blue-500/15 text-blue-300' :
+        color === 'github' ? 'bg-gray-500/15 text-gray-200' :
+        color === 'youtube' ? 'bg-red-500/15 text-red-300' :
+        color === 'instagram' ? 'bg-pink-500/15 text-pink-300' :
+        'bg-primary/15 text-primary'
       }`}>
         {icon}
       </div>
       
       <div className="flex-grow min-w-0">
-        <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+        <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors duration-300">
           {title}
         </h3>
         {subtitle && (
-          <p className="text-sm text-muted-foreground group-hover:text-foreground/80 transition-colors">
+          <p className="text-sm text-muted-foreground/90 group-hover:text-foreground/70 transition-colors duration-300">
             {subtitle}
           </p>
         )}
       </div>
       
-      <ExternalLink className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+      <ExternalLink className="w-6 h-6 text-muted-foreground/60 group-hover:text-primary transition-all duration-300 flex-shrink-0 group-hover:translate-x-1" />
     </div>
   );
 };
