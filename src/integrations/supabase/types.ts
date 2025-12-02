@@ -14,7 +14,72 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      biolink_links: {
+        Row: {
+          color: string | null
+          created_at: string | null
+          icon_url: string | null
+          id: string
+          profile_id: string
+          sort_order: number | null
+          title: string
+          url: string
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string | null
+          icon_url?: string | null
+          id?: string
+          profile_id?: string
+          sort_order?: number | null
+          title: string
+          url: string
+        }
+        Update: {
+          color?: string | null
+          created_at?: string | null
+          icon_url?: string | null
+          id?: string
+          profile_id?: string
+          sort_order?: number | null
+          title?: string
+          url?: string
+        }
+        Relationships: []
+      }
+      biolink_profiles: {
+        Row: {
+          created_at: string | null
+          dark_mode: boolean | null
+          id: string
+          profile_id: string
+          profile_image: string | null
+          tagline: string | null
+          updated_at: string | null
+          username: string
+        }
+        Insert: {
+          created_at?: string | null
+          dark_mode?: boolean | null
+          id?: string
+          profile_id?: string
+          profile_image?: string | null
+          tagline?: string | null
+          updated_at?: string | null
+          username?: string
+        }
+        Update: {
+          created_at?: string | null
+          dark_mode?: boolean | null
+          id?: string
+          profile_id?: string
+          profile_image?: string | null
+          tagline?: string | null
+          updated_at?: string | null
+          username?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
