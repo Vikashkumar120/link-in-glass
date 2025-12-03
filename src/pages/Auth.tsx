@@ -83,7 +83,7 @@ const Auth = () => {
 
           if (profileError) throw profileError;
 
-          toast({ title: "Account created!", description: "Welcome to BioLink!" });
+          toast({ title: "Account created!", description: "Welcome to Code Ninja Bio!" });
         }
       }
     } catch (error: any) {

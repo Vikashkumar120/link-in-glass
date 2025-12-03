@@ -39,7 +39,7 @@ const Index = () => {
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-pink-500 flex items-center justify-center">
             <Sparkles className="w-6 h-6 text-white" />
           </div>
-          <span className="text-2xl font-bold text-white">BioLink</span>
+          <span className="text-2xl font-bold text-white">CNBio</span>
         </div>
         <div className="flex items-center gap-4">
           <Link to="/auth">
@@ -76,7 +76,7 @@ const Index = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style={{ animationDelay: '0.2s' }}>
             <Link to="/auth">
               <Button size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(168,85,247,0.5)]">
-                Create Your BioLink
+                Create Your CNBio
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>
@@ -92,7 +92,7 @@ const Index = () => {
           {[
             { icon: <Users className="w-8 h-8" />, title: "Unique Profiles", description: "Each user gets their own unique URL and customizable profile page." },
             { icon: <Palette className="w-8 h-8" />, title: "Beautiful Design", description: "Stunning animations, dark/light mode, and professional aesthetics." },
-            { icon: <LinkIcon className="w-8 h-8" />, title: "Unlimited Links", description: "Add as many links as you want with custom icons and colors." }
+            { icon: <LinkIcon className="w-8 h-8" />, title: "Free 2 Links", description: "Start with 2 free links, share with friends to unlock more!" }
           ].map((feature, index) => (
             <div
               key={index}
