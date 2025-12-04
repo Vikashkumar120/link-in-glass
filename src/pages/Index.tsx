@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, ArrowRight, Users, Palette, Link as LinkIcon, Zap } from 'lucide-react';
+import { Sparkles, ArrowRight, Users, Palette, Link as LinkIcon, Zap, Heart, Youtube, Github, Instagram, Send, Twitter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import codeNinjaLogo from '@/assets/codeninja-logo.jpg';
 
 const FloatingParticles = () => (
   <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -24,6 +25,14 @@ const FloatingParticles = () => (
 );
 
 const Index = () => {
+  const socialLinks = [
+    { icon: <Youtube className="w-5 h-5" />, url: 'https://youtube.com/@codeninjavik', label: 'YouTube', color: 'hover:bg-red-500/20 hover:text-red-400' },
+    { icon: <Github className="w-5 h-5" />, url: 'https://github.com/codeninjavik', label: 'GitHub', color: 'hover:bg-gray-500/20 hover:text-white' },
+    { icon: <Instagram className="w-5 h-5" />, url: 'https://instagram.com/codeninjavik', label: 'Instagram', color: 'hover:bg-pink-500/20 hover:text-pink-400' },
+    { icon: <Send className="w-5 h-5" />, url: 'https://t.me/codeninjavik', label: 'Telegram', color: 'hover:bg-blue-500/20 hover:text-blue-400' },
+    { icon: <Twitter className="w-5 h-5" />, url: 'https://twitter.com/codeninjavik', label: 'Twitter', color: 'hover:bg-sky-500/20 hover:text-sky-400' },
+  ];
+
   return (
     <div className="min-h-screen bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-purple-900/50 to-gray-900 relative overflow-hidden">
       <FloatingParticles />
@@ -35,13 +44,13 @@ const Index = () => {
       </div>
 
       <header className="relative z-10 container mx-auto px-4 py-6 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-pink-500 flex items-center justify-center">
-            <Sparkles className="w-6 h-6 text-white" />
-          </div>
+        <Link to="/" className="flex items-center gap-3">
+          <img src={codeNinjaLogo} alt="CNBio" className="w-10 h-10 rounded-xl" />
           <span className="text-2xl font-bold text-white">CNBio</span>
-        </div>
-        <div className="flex items-center gap-4">
+        </Link>
+        <nav className="flex items-center gap-4">
+          <Link to="/about" className="text-gray-300 hover:text-white transition-colors hidden sm:block">About</Link>
+          <Link to="/contact" className="text-gray-300 hover:text-white transition-colors hidden sm:block">Contact</Link>
           <Link to="/auth">
             <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/10">
               Sign In
@@ -52,10 +61,10 @@ const Index = () => {
               Get Started
             </Button>
           </Link>
-        </div>
+        </nav>
       </header>
 
-      <main className="relative z-10 container mx-auto px-4 pt-20 pb-32">
+      <main className="relative z-10 container mx-auto px-4 pt-20 pb-16">
         <div className="text-center max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 text-purple-300 text-sm mb-8 animate-fade-in">
             <Zap className="w-4 h-4" />
@@ -108,6 +117,44 @@ const Index = () => {
           ))}
         </div>
       </main>
+
+      {/* Footer with Social Links */}
+      <footer className="relative z-10 border-t border-white/10 py-12 mt-16">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col items-center gap-8">
+            {/* Social Links */}
+            <div className="text-center">
+              <p className="text-gray-400 mb-4">Follow CodeNinjaVik</p>
+              <div className="flex gap-4 justify-center">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`p-3 bg-white/5 rounded-xl border border-white/10 text-gray-400 transition-all duration-300 hover:scale-110 ${social.color}`}
+                    title={social.label}
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Links */}
+            <div className="flex gap-6 text-sm text-gray-500">
+              <Link to="/about" className="hover:text-purple-400 transition-colors">About</Link>
+              <Link to="/contact" className="hover:text-purple-400 transition-colors">Contact</Link>
+              <Link to="/auth" className="hover:text-purple-400 transition-colors">Sign In</Link>
+            </div>
+
+            {/* Copyright */}
+            <p className="text-gray-500 flex items-center gap-1 text-sm">
+              Made with <Heart className="w-4 h-4 text-red-500" /> by CodeNinjaVik
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
