@@ -309,7 +309,7 @@ const UserProfile = () => {
         {/* Footer */}
         <div className="text-center pt-6">
           <p className={`text-sm flex items-center justify-center gap-1 ${localDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>
-            Made with <Heart className="w-4 h-4 text-red-500 animate-heartbeat" /> using BioLink
+            Made with <Heart className="w-4 h-4 text-red-500 animate-heartbeat" /> using CNBio
           </p>
         </div>
       </div>
