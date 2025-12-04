@@ -55,8 +55,10 @@ export type Database = {
           created_at: string | null
           dark_mode: boolean | null
           id: string
+          links_unlocked: boolean | null
           profile_id: string
           profile_image: string | null
+          shares_count: number | null
           tagline: string | null
           updated_at: string | null
           user_id: string | null
@@ -66,8 +68,10 @@ export type Database = {
           created_at?: string | null
           dark_mode?: boolean | null
           id?: string
+          links_unlocked?: boolean | null
           profile_id?: string
           profile_image?: string | null
+          shares_count?: number | null
           tagline?: string | null
           updated_at?: string | null
           user_id?: string | null
@@ -77,8 +81,10 @@ export type Database = {
           created_at?: string | null
           dark_mode?: boolean | null
           id?: string
+          links_unlocked?: boolean | null
           profile_id?: string
           profile_image?: string | null
+          shares_count?: number | null
           tagline?: string | null
           updated_at?: string | null
           user_id?: string | null

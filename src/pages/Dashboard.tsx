@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { 
   Plus, Edit3, Trash2, Upload, Download, Moon, Sun, GripVertical,
-  X, LogOut, Loader2, ExternalLink, Copy, Check,
+  X, LogOut, Loader2, ExternalLink, Copy, Check, Share2, Lock, Unlock,
   Send, Github, Youtube, Instagram, Twitter, Linkedin, Music, Mail, Globe, Link as LinkIcon, Heart
 } from 'lucide-react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
@@ -27,7 +27,12 @@ interface ProfileData {
   profileImage: string;
   links: LinkItem[];
   darkMode: boolean;
+  sharesCount: number;
+  linksUnlocked: boolean;
 }
+
+const FREE_LINK_LIMIT = 2;
+const SHARES_TO_UNLOCK = 2;
 
 const IconRenderer = ({ iconUrl }: { iconUrl?: string }) => {
   const iconClass = "w-6 h-6";
@@ -144,6 +149,8 @@ const Dashboard = () => {
           tagline: profileData.tagline || '',
           profileImage: profileData.profile_image || '/lovable-uploads/4d946d6d-2c54-41f2-850c-b9d435bbf7a7.png',
           darkMode: profileData.dark_mode ?? true,
+          sharesCount: profileData.shares_count || 0,
+          linksUnlocked: profileData.links_unlocked || false,
           links: (linksData || []).map(link => ({
             id: link.id,
             title: link.title,
@@ -202,8 +209,24 @@ const Dashboard = () => {
     }
   };
 
+  const canAddMoreLinks = () => {
+    if (!profile) return false;
+    if (profile.linksUnlocked) return true;
+    return profile.links.length < FREE_LINK_LIMIT;
+  };
+
   const addLink = async () => {
     if (!newLink.title || !newLink.url || !user) return;
+    
+    if (!canAddMoreLinks()) {
+      toast({ 
+        title: "Link limit reached!", 
+        description: "Share with 2 friends on WhatsApp to unlock unlimited links.", 
+        variant: "destructive" 
+      });
+      return;
+    }
+    
     setIsSaving(true);
 
     try {
@@ -241,6 +264,50 @@ const Dashboard = () => {
       toast({ title: "Error", description: "Failed to add link.", variant: "destructive" });
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleWhatsAppShare = async () => {
+    if (!user || !profile) return;
+    
+    const shareUrl = `${window.location.origin}/u/${profile.username}`;
+    const message = encodeURIComponent(`Check out my CNBio page! ${shareUrl}`);
+    const whatsappUrl = `https://wa.me/?text=${message}`;
+    
+    window.open(whatsappUrl, '_blank');
+    
+    // Increment share count
+    const newSharesCount = (profile.sharesCount || 0) + 1;
+    const shouldUnlock = newSharesCount >= SHARES_TO_UNLOCK;
+    
+    try {
+      await supabase
+        .from('biolink_profiles')
+        .update({ 
+          shares_count: newSharesCount,
+          links_unlocked: shouldUnlock
+        })
+        .eq('user_id', user.id);
+      
+      setProfile(prev => prev ? { 
+        ...prev, 
+        sharesCount: newSharesCount,
+        linksUnlocked: shouldUnlock
+      } : null);
+      
+      if (shouldUnlock) {
+        toast({ 
+          title: "🎉 Unlocked!", 
+          description: "You can now add unlimited links!" 
+        });
+      } else {
+        toast({ 
+          title: "Shared!", 
+          description: `${SHARES_TO_UNLOCK - newSharesCount} more share(s) to unlock unlimited links.` 
+        });
+      }
+    } catch (error) {
+      console.error('Error updating share count:', error);
     }
   };
 
@@ -339,7 +406,7 @@ const Dashboard = () => {
       <header className="border-b border-white/10 bg-gray-900/80 backdrop-blur-xl sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Dashboard
+            CNBio Dashboard
           </h1>
           <div className="flex items-center gap-3">
             <Link
@@ -424,16 +491,59 @@ const Dashboard = () => {
 
         {/* Links */}
         <div className="bg-white/5 rounded-2xl border border-white/10 p-6">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold">Links</h2>
-            <Button
-              onClick={() => setShowAddForm(true)}
-              className="bg-purple-600 hover:bg-purple-700"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              Add Link
-            </Button>
+            <div className="flex items-center gap-2">
+              {profile?.linksUnlocked ? (
+                <span className="flex items-center gap-1 px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">
+                  <Unlock className="w-4 h-4" />
+                  Unlimited
+                </span>
+              ) : (
+                <span className="flex items-center gap-1 px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm">
+                  <Lock className="w-4 h-4" />
+                  {profile?.links.length || 0}/{FREE_LINK_LIMIT}
+                </span>
+              )}
+              <Button
+                onClick={() => canAddMoreLinks() ? setShowAddForm(true) : null}
+                disabled={!canAddMoreLinks()}
+                className="bg-purple-600 hover:bg-purple-700 disabled:opacity-50"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Add Link
+              </Button>
+            </div>
           </div>
+
+          {/* Unlock Banner */}
+          {!profile?.linksUnlocked && (
+            <div className="mb-6 p-4 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-xl border border-green-500/30">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-semibold text-green-400 mb-1">
+                    Unlock Unlimited Links!
+                  </p>
+                  <p className="text-sm text-gray-400">
+                    Share your profile with {SHARES_TO_UNLOCK - (profile?.sharesCount || 0)} more friend(s) on WhatsApp
+                  </p>
+                </div>
+                <Button
+                  onClick={handleWhatsAppShare}
+                  className="bg-green-600 hover:bg-green-700 text-white"
+                >
+                  <Share2 className="w-4 h-4 mr-2" />
+                  Share on WhatsApp
+                </Button>
+              </div>
+              <div className="mt-3 h-2 bg-black/30 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-green-500 to-emerald-500 transition-all duration-300"
+                  style={{ width: `${((profile?.sharesCount || 0) / SHARES_TO_UNLOCK) * 100}%` }}
+                />
+              </div>
+            </div>
+          )}
 
           {/* Add/Edit Form */}
           {(showAddForm || editingLink) && (
