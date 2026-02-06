@@ -52,6 +52,7 @@ export type Database = {
       }
       biolink_profiles: {
         Row: {
+          bg_video_url: string | null
           created_at: string | null
           dark_mode: boolean | null
           id: string
@@ -65,6 +66,7 @@ export type Database = {
           username: string
         }
         Insert: {
+          bg_video_url?: string | null
           created_at?: string | null
           dark_mode?: boolean | null
           id?: string
@@ -78,6 +80,7 @@ export type Database = {
           username?: string
         }
         Update: {
+          bg_video_url?: string | null
           created_at?: string | null
           dark_mode?: boolean | null
           id?: string

@@ -1,0 +1,1 @@
+ALTER TABLE public.biolink_profiles ADD COLUMN bg_video_url text DEFAULT NULL;
