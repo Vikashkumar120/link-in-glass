@@ -29,6 +29,7 @@ import {
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { supabase } from '@/integrations/supabase/client';
 import bioBgVideo from '@/assets/bio-bg-video.mp4';
+import demoBioBgVideo from '@/assets/demo-bio-bg-video.mp4';
 
 interface LinkItem {
   id: string;
@@ -45,6 +46,7 @@ interface ProfileData {
   profileImage: string;
   links: LinkItem[];
   darkMode: boolean;
+  bgVideoUrl: string | null;
 }
 
 const ADMIN_PASSWORD = "vikas123";
@@ -141,7 +143,8 @@ const AdvancedBioLink: React.FC = () => {
     tagline: "",
     profileImage: "",
     links: [],
-    darkMode: true
+    darkMode: true,
+    bgVideoUrl: null
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isAdminMode, setIsAdminMode] = useState(false);
@@ -179,6 +182,7 @@ const AdvancedBioLink: React.FC = () => {
           tagline: profileData.tagline || '',
           profileImage: profileData.profile_image || '/lovable-uploads/4d946d6d-2c54-41f2-850c-b9d435bbf7a7.png',
           darkMode: profileData.dark_mode ?? true,
+          bgVideoUrl: (profileData as any).bg_video_url || null,
           links: (linksData || []).map(link => ({
             id: link.id,
             title: link.title,
@@ -438,7 +442,7 @@ const AdvancedBioLink: React.FC = () => {
           className="w-full h-full object-cover"
           style={{ opacity: profile.darkMode ? 0.5 : 0.2 }}
         >
-          <source src={bioBgVideo} type="video/mp4" />
+          <source src={profile.bgVideoUrl === 'demo-bio-bg' ? demoBioBgVideo : bioBgVideo} type="video/mp4" />
         </video>
         <div className={`absolute inset-0 ${
           profile.darkMode 
