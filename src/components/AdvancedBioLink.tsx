@@ -28,6 +28,7 @@ import {
 } from 'lucide-react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { supabase } from '@/integrations/supabase/client';
+import bioBgVideo from '@/assets/bio-bg-video.mp4';
 
 interface LinkItem {
   id: string;
@@ -424,17 +425,29 @@ const AdvancedBioLink: React.FC = () => {
   return (
     <div className={`min-h-screen relative transition-all duration-700 ${
       profile.darkMode 
-        ? 'bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-purple-900/50 to-gray-900' 
+        ? 'bg-black' 
         : 'bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-purple-50 via-white to-blue-50'
     }`}>
-      <FloatingParticles />
-      
-      {/* Animated gradient orbs */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500/30 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/30 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+      {/* Background Video */}
+      <div className="fixed inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+          style={{ opacity: profile.darkMode ? 0.5 : 0.2 }}
+        >
+          <source src={bioBgVideo} type="video/mp4" />
+        </video>
+        <div className={`absolute inset-0 ${
+          profile.darkMode 
+            ? 'bg-gradient-to-b from-black/40 via-transparent to-black/60' 
+            : 'bg-gradient-to-b from-white/60 via-white/30 to-white/60'
+        }`} />
       </div>
+
+      <FloatingParticles />
       
       <div className="container mx-auto px-4 py-8 max-w-md relative z-10">
         
