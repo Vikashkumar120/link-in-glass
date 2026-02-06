@@ -30,7 +30,7 @@ const Index = () => {
     { icon: <Youtube className="w-5 h-5" />, url: 'https://youtube.com/@codeninjavik', label: 'YouTube', color: 'hover:bg-red-500/20 hover:text-red-400' },
     { icon: <Github className="w-5 h-5" />, url: 'https://github.com/codeninjavik', label: 'GitHub', color: 'hover:bg-gray-500/20 hover:text-white' },
     { icon: <Instagram className="w-5 h-5" />, url: 'https://instagram.com/codeninjavik', label: 'Instagram', color: 'hover:bg-pink-500/20 hover:text-pink-400' },
-    { icon: <Send className="w-5 h-5" />, url: 'https://t.me/codeninjavik', label: 'Telegram', color: 'hover:bg-blue-500/20 hover:text-blue-400' },
+    { icon: <Send className="w-5 h-5" />, url: 'https://t.me/Codeninja_vik', label: 'Telegram', color: 'hover:bg-blue-500/20 hover:text-blue-400' },
     { icon: <Twitter className="w-5 h-5" />, url: 'https://twitter.com/codeninjavik', label: 'Twitter', color: 'hover:bg-sky-500/20 hover:text-sky-400' },
   ];
 
