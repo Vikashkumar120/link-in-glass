@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Sparkles, ArrowRight, Users, Palette, Link as LinkIcon, Zap, Heart, Youtube, Github, Instagram, Send, Twitter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import codeNinjaLogo from '@/assets/codeninja-logo.jpg';
+import bioBgVideo from '@/assets/bio-bg-video.mp4';
 
 const FloatingParticles = () => (
   <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -34,13 +35,26 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-purple-900/50 to-gray-900 relative overflow-hidden">
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Background Video */}
+      <div className="fixed inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-40"
+        >
+          <source src={bioBgVideo} type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/70" />
+      </div>
+
       <FloatingParticles />
       
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500/30 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/30 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
       <header className="relative z-10 container mx-auto px-4 py-6 flex items-center justify-between">
